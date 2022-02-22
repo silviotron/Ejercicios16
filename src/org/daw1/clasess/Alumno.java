@@ -152,8 +152,15 @@ public class Alumno implements Comparable<Alumno>{
     public String toString() {
         String formatoFecha = "dd/MM/yyyy";
         java.time.format.DateTimeFormatter formateador = java.time.format.DateTimeFormatter.ofPattern(formatoFecha);
-        return this.dni + " " + this.getNomnbreCompleto() + " " + formateador.format(fechaNacimiento);
-    }
+        String resultado = this.dni + " " + this.getNomnbreCompleto() + " " + formateador.format(fechaNacimiento);
+        if (this.notaPrimero != null) {
+            resultado += "nota 1º: " + this.notaPrimero;
+        }
+        if (this.notaSegundo != null) {
+            resultado += "nota 2º: " + this.notaSegundo;
+        }
+        return resultado;
+    }   
 
     @Override
     public boolean equals(Object obj) {
