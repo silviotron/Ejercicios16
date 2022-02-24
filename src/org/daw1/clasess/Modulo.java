@@ -7,20 +7,22 @@ package org.daw1.clasess;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.time.DayOfWeek;
 
 /**
  *
  * @author alumno
  */
-public class Modulo {
+public class Modulo implements Comparable<Modulo>{
     private static int MAX_SESIONES = 30;
     private static int MINUTOS_SESION = 50;
     private final String nombre;
     private final String codigo;
     private final int sesionesSemanales;
     private String titular;
-    private Map<String, LocalDateTime[]> horario;
+    private Map<String, Set<Sesion>> horario;
 
     public Modulo(String nombre, String codigo, int sesionesSemanales, String titular) {
         checkNombre(nombre);
@@ -32,7 +34,7 @@ public class Modulo {
         this.sesionesSemanales = sesionesSemanales;        
         this.titular = titular;
         this.horario = new TreeMap<>();
-        horario.put("lunes", null);
+        horario.put("lunes", new treeSet);
         horario.put("martes", null);
         horario.put("miercoles", null);
         horario.put("jueves", null);
@@ -94,16 +96,49 @@ public class Modulo {
         return horario;
     }
 
+    public static int getMINUTOS_SESION() {
+        return MINUTOS_SESION;
+    }
+    
+
     public void setTitular(String titular) {
         this.titular = titular;
     }
-    
-    
     
     public void addHorario(String dia, LocalDateTime inicio, LocalDateTime fin){
         checkFecha(inicio, fin);
         checkDia(dia);
         horario.put(dia, new LocalDateTime[]{inicio, fin});
     }
+
+    @Override
+    public String toString() {
+        return this.codigo + " - " + this.nombre;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null){
+            return false;
+        }
+        else if(this == obj){
+            return true;
+        }
+        else if(!(obj instanceof Modulo)){
+            return false;
+        }
+        else{
+            Modulo otro = (Modulo)obj;
+            return this.codigo.equals(otro.getCodigo()) && this.nombre.equals(otro.getNombre());
+        }
+    }
+
+    @Override
+    public int compareTo(Modulo arg0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    
     
 }
