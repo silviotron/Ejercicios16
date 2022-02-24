@@ -45,6 +45,11 @@ public class Sesion implements Comparable<Sesion> {
         }
     }
 
+    public DayOfWeek getDiaClase() {
+        return diaClase;
+    }
+    
+
     @Override
     public int compareTo(Sesion t) {
         if (t == null) {

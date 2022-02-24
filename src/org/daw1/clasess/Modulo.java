@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.time.DayOfWeek;
+import java.util.TreeSet;
 
 /**
  *
@@ -22,7 +23,7 @@ public class Modulo implements Comparable<Modulo>{
     private final String codigo;
     private final int sesionesSemanales;
     private String titular;
-    private Map<String, Set<Sesion>> horario;
+    private Map<DayOfWeek, Set<Sesion>> horario;
 
     public Modulo(String nombre, String codigo, int sesionesSemanales, String titular) {
         checkNombre(nombre);
@@ -34,11 +35,7 @@ public class Modulo implements Comparable<Modulo>{
         this.sesionesSemanales = sesionesSemanales;        
         this.titular = titular;
         this.horario = new TreeMap<>();
-        horario.put("lunes", new treeSet);
-        horario.put("martes", null);
-        horario.put("miercoles", null);
-        horario.put("jueves", null);
-        horario.put("viernes", null);
+        
     }
     
     private static void checkNombre(String nombre) {
@@ -65,16 +62,6 @@ public class Modulo implements Comparable<Modulo>{
         }
 
     }   
-    private void checkDia(String dia){
-        if (!horario.containsKey(dia)) {
-            throw new IllegalArgumentException("Error. dia no valido");
-        }
-    }
-    private static void checkFecha(LocalDateTime inicio,LocalDateTime fin){
-        if (inicio == null || fin == null || inicio.isBefore(fin)) {
-            throw new IllegalArgumentException("Error. horas no validas");
-        }
-    }
 
     public String getNombre() {
         return nombre;
@@ -92,7 +79,7 @@ public class Modulo implements Comparable<Modulo>{
         return titular;
     }
 
-    public Map<String, LocalDateTime[]> getHorario() {
+    public Map<DayOfWeek, Set<Sesion>> getHorario() {
         return horario;
     }
 
@@ -105,10 +92,9 @@ public class Modulo implements Comparable<Modulo>{
         this.titular = titular;
     }
     
-    public void addHorario(String dia, LocalDateTime inicio, LocalDateTime fin){
-        checkFecha(inicio, fin);
-        checkDia(dia);
-        horario.put(dia, new LocalDateTime[]{inicio, fin});
+    public void addHorario(Sesion t){ //TODO: terminar
+        horario.get(t.getDiaClase()).add(t);
+        horario.put(t.getDiaClase(), new TreeSet<>());
     }
 
     @Override
