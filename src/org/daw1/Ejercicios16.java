@@ -36,10 +36,10 @@ public class Ejercicios16 {
                     break;
                 case "2":
                     Parte2.main(args);
-//                    break;
-//                case "3":
-//                    Parte3.main(args);
-//                    break;
+                    break;
+                case "3":
+                    test.main(args);
+                    break;
 //                case "4":
 //                    Parte4.main(args);
 //                    break;                    
