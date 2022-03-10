@@ -106,7 +106,7 @@ public class Modulo implements Comparable<Modulo>{
      * @return si se eliminóla sesión
      */
     public boolean removeSesion(Sesion s){
-        if(this.horario.add(s)){
+        if(this.horario.remove(s)){
             this.sesionesSemanales =- s.getCuantasSesiones();
             return true;
         }else{
