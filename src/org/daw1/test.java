@@ -8,7 +8,6 @@ package org.daw1;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import org.daw1.clasess.Sesion;
-
 /**
  *
  * @author alumno
@@ -37,10 +36,24 @@ public class test {
         Sesion[] horario = new Sesion[sesiones];
 
         for (int i = 0; i < horario.length; i++) {
+            System.out.println("Creacion sesion " + i+1);
             horario[i] = crearSesion();
         }
+        for (int i = 0; i < horario.length; i++) {
+            for (int j = i; j < horario.length; j++) {
+                if(horario[i].compareTo(horario[j]) > 0){
+                    Sesion aux = horario[i];
+                    horario[i] = horario[j];
+                    horario[j] = aux;
+                }
+            }
+            
+        }
+        for (Sesion sesion : horario) {
+            System.out.println(sesion);
+        }
     }
-
+    
     public static Sesion crearSesion() {
         DayOfWeek dia = null;
         do {
@@ -97,7 +110,12 @@ public class test {
             if(timeSalida.compareTo(timeEntrada) < 0){
                 System.out.println("La hora de salida debe ser posterior a la hora de entrada.");
             }else{
-                resultado = new Sesion(timeEntrada, timeSalida, dia);
+                try{
+                    resultado = new Sesion(timeEntrada, timeSalida, dia);
+                }catch(IllegalArgumentException ex){
+                    System.out.println(ex.getMessage());
+                }
+                
             }
         } while (resultado == null);
         return resultado;

@@ -7,6 +7,7 @@ package org.daw1.clasess;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.temporal.ChronoField;
 
 /**
  *
@@ -44,6 +45,14 @@ public class Sesion implements Comparable<Sesion> {
             throw new IllegalArgumentException("Error. no se permiten ni sabados ni domingo");
         }
     }
+    /**
+     * Devuelve a cuantas sesiones de clase equivale el horario de este objeto 
+     * @return número de sesiones de clase
+     */
+    public int getCuantasSesiones(){
+        return this.horaSalida.get(ChronoField.MINUTE_OF_DAY) -  this.horaEntrada.get(ChronoField.MINUTE_OF_DAY) / Modulo.getMINUTOS_SESION();
+    }
+    
 
     public DayOfWeek getDiaClase() {
         return diaClase;
@@ -79,5 +88,11 @@ public class Sesion implements Comparable<Sesion> {
             return this.diaClase.equals(aux.diaClase) && this.horaEntrada.equals(aux.horaEntrada) & this.horaSalida.equals(aux.horaSalida);
         }
     }
+
+    @Override
+    public String toString() {
+        return this.diaClase + ": " + this.horaEntrada + " - " + this.horaSalida;
+    }
+    
 
 }

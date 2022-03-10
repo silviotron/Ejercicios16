@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.time.DayOfWeek;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 /**
@@ -21,20 +22,20 @@ public class Modulo implements Comparable<Modulo>{
     private static int MINUTOS_SESION = 50;
     private final String nombre;
     private final String codigo;
-    private final int sesionesSemanales;
+    private int sesionesSemanales;
     private String titular;
-    private Map<DayOfWeek, Set<Sesion>> horario;
+    private Set<Sesion> horario = new TreeSet<>();
+    
 
-    public Modulo(String nombre, String codigo, int sesionesSemanales, String titular) {
+    public Modulo(String nombre, String codigo, String titular) {
         checkNombre(nombre);
         checkcodigo(codigo);
-        checkSesiones(sesionesSemanales);
         checkTitular(titular);
         this.nombre = nombre;
-        this.codigo = codigo;
-        this.sesionesSemanales = sesionesSemanales;        
+        this.codigo = codigo;       
         this.titular = titular;
-        this.horario = new TreeMap<>();
+        this.horario = new TreeSet<>();
+        this.sesionesSemanales = 0;
         
     }
     
@@ -56,12 +57,6 @@ public class Modulo implements Comparable<Modulo>{
         }
 
     }
-    private static void checkSesiones(int sesiones) {
-        if (sesiones > MAX_SESIONES || sesiones < 0) {
-            throw new IllegalArgumentException("Error. sesiones no validas");
-        }
-
-    }   
 
     public String getNombre() {
         return nombre;
@@ -79,7 +74,7 @@ public class Modulo implements Comparable<Modulo>{
         return titular;
     }
 
-    public Map<DayOfWeek, Set<Sesion>> getHorario() {
+    public Set<Sesion> getHorario() {
         return horario;
     }
 
@@ -92,9 +87,31 @@ public class Modulo implements Comparable<Modulo>{
         this.titular = titular;
     }
     
-    public void addHorario(Sesion t){ //TODO: terminar
-        horario.get(t.getDiaClase()).add(t);
-        horario.put(t.getDiaClase(), new TreeSet<>());
+    /**
+     * Añade una sesion al modulo actualizando el número de sesiones
+     * @param s sesion
+     * @return si se añadio la sesión
+     */
+    public boolean addSesion(Sesion s){
+        if(this.horario.add(s)){
+            this.sesionesSemanales =+ s.getCuantasSesiones();
+            return true;
+        }else{
+            return false;
+        }
+    }
+    /**
+     * Elimina una sesion al modulo actualizando el número de sesiones
+     * @param s sesion
+     * @return si se eliminóla sesión
+     */
+    public boolean removeSesion(Sesion s){
+        if(this.horario.add(s)){
+            this.sesionesSemanales =- s.getCuantasSesiones();
+            return true;
+        }else{
+            return false;
+        }        
     }
 
     @Override
@@ -123,7 +140,11 @@ public class Modulo implements Comparable<Modulo>{
     public int compareTo(Modulo arg0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public int hashCode() {
+        return (this.codigo + this.nombre).hashCode();
+    }
     
     
     
