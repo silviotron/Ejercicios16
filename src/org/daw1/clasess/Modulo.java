@@ -145,6 +145,17 @@ public class Modulo implements Comparable<Modulo>{
     public int hashCode() {
         return (this.codigo + this.nombre).hashCode();
     }
+
+    public static void setMINUTOS_SESION(int n) {
+        if(n <= 0){
+            throw new IllegalArgumentException("Error.");
+        }
+        Modulo.MINUTOS_SESION = n;
+    }
+    
+    public void borrarHorario(){
+        this.horario.clear();
+    }
     
     
     

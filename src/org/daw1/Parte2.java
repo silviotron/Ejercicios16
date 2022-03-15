@@ -33,6 +33,8 @@ public class Parte2 {
     public static void main(String[] args) {
         modulos.put("PROG", new Modulo("programacion", "PROG", "Rafa"));
         modulos.put("SSRR",new Modulo("sistemas y reses", "SSRR", "Marcos"));
+        modulos.get("PROG").addSesion(new Sesion(LocalTime.of(11, 10), LocalTime.of(12, 0), DayOfWeek.MONDAY));
+        modulos.get("PROG").addSesion(new Sesion(LocalTime.of(14, 20), LocalTime.of(15, 10), DayOfWeek.MONDAY));
         
         String seleccion = "";
         java.util.Scanner sc = new java.util.Scanner(System.in);
@@ -44,6 +46,7 @@ public class Parte2 {
             System.out.println("* 2. Mostrar horario *");
             System.out.println("* 3. Editar horario  *");
             System.out.println("* 4. mostrar modulos *");
+            System.out.println("* 5. Duración sesión *");
             System.out.println("* 0. Salir           *");
             System.out.println("**********************");
             seleccion = sc.nextLine();
@@ -59,6 +62,9 @@ public class Parte2 {
                     break;
                 case "4":
                     ejercicio4();
+                    break;
+                case "5":
+                    ejercicio5();
                     break;
                 case "0":
                     break;
@@ -170,8 +176,11 @@ public class Parte2 {
                     }
                     break;
                 case "2":
-                    if (!borrarSesion(clave)) {
-                        System.out.println("Error al borrar sesión.");
+                    if(modulos.get(clave).getHorario().isEmpty()){
+                        System.out.println("Error. El horario está vacio");
+                    }else{
+                    borrarSesion(clave);
+                        
                     }
                     break;
                 case "0":
@@ -205,13 +214,18 @@ public class Parte2 {
             if(sc.hasNextInt()){
                 n = sc.nextInt() - 1;
             }
-            if(n <= -1 || n > array.length){
+            if(n < -1 || n >= array.length){
                 System.out.println("Error.");
             }
-             sc.nextLine();
-        } while (n <= -1 || n > array.length);
-        if (n != 0) {
-        return modulos.get(s).removeSesion(array[n]);
+            sc.nextLine();
+        } while (n < -1 || n >= array.length);
+        if (n >= 0 && n < array.length) {
+            if(modulos.get(s).removeSesion(array[n])){
+                return true;
+            }else{
+                System.out.println("Error.");
+                return false;
+            }
             
         }else{
             return false;
@@ -296,6 +310,33 @@ public class Parte2 {
                 System.out.printf("%2s: %4s\n", i + 1 ,array[i]);
                 
             }
+    }
+    
+    public static void ejercicio5(){
+        System.out.println("Duracion actual: " + Modulo.getMINUTOS_SESION() + " minutos.");
+        int numero = -1;
+        java.util.Scanner sc = new java.util.Scanner(System.in); 
+        do{
+            System.out.print("Introduce la nueva duracion de las sesiones: ");
+            if(sc.hasNextInt()){
+                numero = sc.nextInt();
+            }
+            if(!(numero >= 0)){
+                System.out.println("Error al introducir el número");
+            }
+            sc.nextLine();
+        }while(!(numero >= 0));
+        if (numero != Modulo.getMINUTOS_SESION()) {
+            Modulo.setMINUTOS_SESION(numero);
+            for (Modulo modulo : modulos.values()) {
+                modulo.borrarHorario();
+
+            }
+            System.out.println("Operación realizada con éxito.");
+        }else{
+            System.out.println("No se ha producido ningun cambio.");
+        }
+        
     }
     
 }
