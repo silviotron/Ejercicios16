@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import org.daw1.clasess.Modulo;
-import org.daw1.clasess.Sesion;
+import org.daw1.clases.Modulo;
+import org.daw1.clases.Sesion;
 
 /**
  *

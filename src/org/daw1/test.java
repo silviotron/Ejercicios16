@@ -7,7 +7,7 @@ package org.daw1;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import org.daw1.clasess.Sesion;
+import org.daw1.clases.Sesion;
 /**
  *
  * @author alumno

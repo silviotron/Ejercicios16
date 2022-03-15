@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import org.daw1.clasess.Alumno;
+import org.daw1.clases.Alumno;
 /**
  *
  * @author alumno

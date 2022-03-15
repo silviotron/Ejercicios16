@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.daw1.clasess;
+package org.daw1.clases;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;

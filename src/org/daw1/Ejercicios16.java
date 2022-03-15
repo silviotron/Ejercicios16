@@ -38,7 +38,7 @@ public class Ejercicios16 {
                     Parte2.main(args);
                     break;
                 case "3":
-                    test.main(args);
+                    Parte3.main(args);
                     break;
 //                case "4":
 //                    Parte4.main(args);
