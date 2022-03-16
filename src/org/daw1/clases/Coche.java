@@ -16,13 +16,13 @@ public class Coche implements Comparable<Coche>{
     private final String modelo;
     private String matricula;
     private final String numBastidor;
-    private enum TipoCombustible{NINGUNO,DIESEL,GASOLINA}
+    public enum TipoCombustible{NINGUNO,DIESEL,GASOLINA}
     private final TipoCombustible combustible;
     private final boolean electrico;
     
-    final private static Pattern PATRON_MATRICULA = Pattern.compile("[0-9]{4}[A-Z]{3}");
-    final private static Pattern PATRON_MARAC_MODELO = Pattern.compile("[A-Za-z0-9 ]+");
-    final private static Pattern PATRON_BASTIDOR = Pattern.compile("[A-Z]{6}[0-9][A-Z]{4}[0-9]{6}");
+    final public static Pattern PATRON_MATRICULA = Pattern.compile("[0-9]{4}[A-Z]{3}");
+    final public static Pattern PATRON_MARACA_MODELO = Pattern.compile("[A-Za-z0-9 ]+");
+    final public static Pattern PATRON_BASTIDOR = Pattern.compile("[A-Z]{6}[0-9][A-Z]{4}[0-9]{6}");
          
 
     public Coche(String marca, String modelo, String matricula, String numBastidor,TipoCombustible combustible, boolean electrico) {
@@ -39,7 +39,7 @@ public class Coche implements Comparable<Coche>{
     }
     
     private static void checkMarcaModelo(String s){
-        if(s == null || !PATRON_MARAC_MODELO.matcher(s).matches()){
+        if(s == null || !PATRON_MARACA_MODELO.matcher(s).matches()){
             throw new IllegalArgumentException("Solo se permiten letras, números y espacios");
         }
     }
@@ -104,6 +104,27 @@ public class Coche implements Comparable<Coche>{
             return matricula.compareTo(t.matricula);
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null){
+            return false;
+        }
+        else if(obj == this){
+            return true;
+        }else if(obj instanceof Coche){
+            Coche aux = (Coche)obj;
+            return this.matricula.equals(aux.matricula);
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.matricula.hashCode();
+    }
+    
     
     
     
