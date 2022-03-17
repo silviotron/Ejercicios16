@@ -5,6 +5,12 @@
  */
 package org.daw1;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Locale.Builder;
+import java.util.Set;
+
 /**
  *
  * @author alumno
@@ -40,9 +46,12 @@ public class Ejercicios16 {
                 case "3":
                     Parte3.main(args);
                     break;
-//                case "4":
-//                    Parte4.main(args);
-//                    break;                    
+                case "4":                    
+                    Set<String> paises = new HashSet<String>(Arrays.asList(Locale.getISOCountries()));
+                    for (String pais : paises) {
+                        System.out.println(pais);
+                    }
+                    break;                    
 //                case "5":
 //                    Parte5.main(args);
 //                    break;               
