@@ -47,14 +47,10 @@ public class Ejercicios16 {
                     Parte3.main(args);
                     break;
                 case "4":                    
-                    Set<String> paises = new HashSet<String>(Arrays.asList(Locale.getISOCountries()));
-                    for (String pais : paises) {
-                        System.out.println(pais);
-                    }
                     break;                    
-//                case "5":
-//                    Parte5.main(args);
-//                    break;               
+                case "5":
+                    Parte5.main(args);
+                    break;               
                 case "0":
                     break;
                 default:
