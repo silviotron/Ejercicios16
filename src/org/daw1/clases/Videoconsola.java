@@ -38,7 +38,6 @@ public class Videoconsola implements Comparable<Videoconsola> {
         this.ram = ram;
         this.tipoRam = tipoRam;
         this.maxRes = maxRes;
-        fabricante.addConsola(this);
     }
 
     private static void checkNombre(String s) {
@@ -100,8 +99,11 @@ public class Videoconsola implements Comparable<Videoconsola> {
         this.maxRes = maxRes;
     }
     protected void setFabricante(Fabricante f){
+        checkNull(f);
         if (!f.equals(this.fabricante)) {
-            this.fabricante.removeConsola(this);
+            if (this.fabricante != null) {
+                this.fabricante.removeConsola(this);                
+            }
             this.fabricante = f;
             f.addConsola(this);
         }
@@ -123,9 +125,7 @@ public class Videoconsola implements Comparable<Videoconsola> {
         if (t == null) {
             throw new NullPointerException();
         } else {
-            if (this.fabricante.compareTo(t.fabricante) != 0) {
-                return this.fabricante.compareTo(t.fabricante);
-            } else if (this.marca.compareTo(t.marca) != 0) {
+            if (this.marca.compareTo(t.marca) != 0) {
                 return this.marca.compareTo(t.marca);
 
             } else {
@@ -140,11 +140,11 @@ public class Videoconsola implements Comparable<Videoconsola> {
             return false;
         } else if (obj == this) {
             return true;
-        } else if (!(obj instanceof Videoconsola)) {
-            return false;
-        } else {
+        } else if (obj instanceof Videoconsola) {
             Videoconsola aux = (Videoconsola) obj;
             return this.fabricante.equals(aux.fabricante) && this.marca.equals(aux.marca) & this.modelo.equals(aux.modelo);
+        } else {
+            return false;
         }
     }
 

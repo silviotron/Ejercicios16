@@ -24,12 +24,13 @@ import org.daw1.clases.Videoconsola;
  */
 public class Parte5 {
     private static java.util.Scanner sc;
-    private static  Set<Fabricante> almacen = new HashSet<>();
+    private static  Set<Fabricante> almacen;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        almacen = new HashSet<>();
         String seleccion = "";
         sc = new java.util.Scanner(System.in);
         do {
@@ -48,13 +49,18 @@ public class Parte5 {
                     newFabricante();
                     break;
                 case "2":
-                    newConsola();
+                    if (!almacen.isEmpty()) {
+                        newConsola();
+                        
+                    }else{
+                        System.out.println("Error. primero crea un fabricante.");
+                    }
                     break;
                 case "3":
-                    
+                    printConsolasFabricante();
                     break;
                 case "4":
-
+                    printAllConsolas();
                     break;
                 case "0":
                     break;
@@ -141,33 +147,33 @@ public class Parte5 {
             if(sc.hasNextInt()){
                 maxUsuarios = sc.nextInt();
             }
-            if(!(maxUsuarios >= 0)){
+            if(maxUsuarios <= 0){
                 System.out.println("Error al introducir el número");
             }
             sc.nextLine();
-        }while(!(maxUsuarios >= 0));
+        }while(maxUsuarios <= 0);
         int vRam = -1;
         do{
             System.out.print("Introduce el tamaño de vRAM(GB): ");
             if(sc.hasNextInt()){
                 vRam = sc.nextInt();
             }
-            if(!(vRam >= 0)){
+            if(vRam <= 0){
                 System.out.println("Error al introducir el número");
             }
             sc.nextLine();
-        }while(!(vRam >= 0));
+        }while(vRam <= 0);
         int ram = -1;
         do{
             System.out.print("Introduce el tamaño de RAM(GB): ");
             if(sc.hasNextInt()){
                 ram = sc.nextInt();
             }
-            if(!(ram >= 0)){
+            if(ram <= 0){
                 System.out.println("Error al introducir el número");
             }
             sc.nextLine();
-        }while(!(ram >= 0));
+        }while(ram <= 0);
         System.out.println("Selecciona el tipo de ram");
         for (int i = 1; i <= TipoRam.values().length; i++) {
             System.out.printf("%2s. %s\n",i,TipoRam.of(i));
@@ -198,7 +204,32 @@ public class Parte5 {
             }
             sc.nextLine();
         }while(!(nRes > -1));
-        return new Videoconsola(marca, modelo, maxUsuarios, vRam, ram,TipoRam.of(nRam), Res.of(nRes));
+        return new Videoconsola( marca, modelo, maxUsuarios, vRam, ram,TipoRam.of(nRam), Res.of(nRes));
     }
-    
+    public static void printConsolasFabricante(){
+        Fabricante[] fabricantes = almacen.toArray(new Fabricante[almacen.size()]);
+        System.out.println("Selecciona el fabricante: ");
+        for (int i = 0; i < fabricantes.length; i++) {
+            System.out.printf(" %2s. %s\n", i + 1, fabricantes[i].getNombre());
+
+        }     
+        int numero = -2;
+        do{
+            System.out.print("Introduce un número: ");
+            if(sc.hasNextInt()){
+                numero = sc.nextInt()-1;
+            }
+            if(!(numero > -1)){
+                System.out.println("Error al introducir el número");
+            }
+            sc.nextLine();
+        }while(!(numero > -1));
+        fabricantes[numero].printConsolas();
+    }
+    public static void printAllConsolas(){
+        for (Fabricante fabricante : almacen) {
+            fabricante.printConsolas();
+        }
+        
+    }
 }

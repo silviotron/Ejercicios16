@@ -79,7 +79,18 @@ public class Fabricante implements Comparable<Fabricante> {
     }
 
     public boolean removeConsola(Videoconsola v) {
-        return consolas.remove(v);
+        if (consolas.contains(v)) {
+            return consolas.remove(v);
+
+        }else{
+            return false;
+        }
+    }
+    public void printConsolas(){
+        for (Videoconsola consola : consolas) {
+            System.out.println(consola);
+        }
+        
     }
 
     @Override
